@@ -7,22 +7,18 @@ extern "C" {
 using namespace std;
 
 int main() {
-    int r;
-
-    r = libusb_init_context(/*ctx=*/NULL, /*options=*/NULL, /*num_options=*/0);
-    if (r < 0)
-        return r;
-
-    libusb_device_handle* dev = libusb_open_device_with_vid_pid(NULL, USB_VENDOR_ID, USB_PRODUCT_ID);
-    if (dev == NULL) {
-        std::cout << "Device not found" << std::endl;
+    int context_return = init_usb_context();
+    if (context_return < 0) {
+        return context_return;
     }
-    else {
-        std::cout << "Device found" << std::endl;
+
+    libusb_device_handle* dev = open_device(USB_VENDOR_ID, USB_PRODUCT_ID);
+    if (dev == NULL) {
+        return -1;
     }
 
     // Test set brightness to 21 out of max 255
-    razer_set_brightness(dev, 0x15, 1);
+    razer_set_brightness(dev, 0xA9, 1);
 
     return 0;
 }

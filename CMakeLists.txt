@@ -3,7 +3,7 @@
 project ("razer-da-editor" LANGUAGES C CXX)
 
 # Add source to this project's executable.
-add_executable (razer-da-editor "src/main.cpp" "src/razer.c")
+add_executable (razer-da-editor "src/main.cpp" "src/razer.c" "src/usb.c")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET razer-da-editor PROPERTY CXX_STANDARD 20)

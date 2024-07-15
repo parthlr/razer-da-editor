@@ -1,7 +1,21 @@
 #include "usb.h"
-#include <libusb.h>
-#include <stdint.h>
-#include <cstdio>
+#include <stdio.h>
+
+int init_usb_context() {
+    int r;
+    r = libusb_init_context(/*ctx=*/NULL, /*options=*/NULL, /*num_options=*/0);
+    return r;
+}
+
+libusb_device_handle* open_device(uint16_t vendor_id, uint16_t product_id) {
+    libusb_device_handle* dev = libusb_open_device_with_vid_pid(NULL, vendor_id, product_id);
+    if (dev == NULL) {
+        printf("Device not found\n");
+        return NULL;
+    }
+    printf("Device found\n");
+    return dev;
+}
 
 void print_devs(libusb_device** devs) {
 	libusb_device* dev;
