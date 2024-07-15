@@ -1,3 +1,6 @@
+#ifndef RAZER_H
+#define RAZER_H
+
 #include <libusb.h>
 #include <stdint.h>
 
@@ -29,5 +32,7 @@ int razer_get_usb_response(libusb_device_handle* dev, unsigned int report_index,
 int razer_get_report(libusb_device_handle* dev, struct razer_report* request, struct razer_report* response);
 unsigned char razer_calculate_crc(struct razer_report* report);
 int razer_send_payload(libusb_device_handle* dev, struct razer_report* request, struct razer_report* response);
-razer_report get_razer_report(unsigned char command_class, unsigned char command_id, unsigned char data_size);
-ssize_t razer_set_brightness(libusb_device_handle* dev, const char* buf, size_t count);
+struct razer_report get_razer_report(unsigned char command_class, unsigned char command_id, unsigned char data_size);
+ssize_t razer_set_brightness(libusb_device_handle* dev, uint8_t brightness, size_t count);
+
+#endif
