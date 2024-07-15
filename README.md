@@ -1,1 +1,1 @@
-# razer-da-editor
+# Razer DeathAdder Essential RGB Editor
