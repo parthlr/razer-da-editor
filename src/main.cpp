@@ -1,4 +1,7 @@
 #include <iostream>
+#include <QApplication>
+#include "gui.h"
+
 extern "C" {
     #include "usb.h"
     #include "razer.h"
@@ -6,19 +9,11 @@ extern "C" {
 
 using namespace std;
 
-int main() {
-    int context_return = init_usb_context();
-    if (context_return < 0) {
-        return context_return;
-    }
+int main(int argc, char* argv[]) {
+    QApplication app(argc, argv);
 
-    libusb_device_handle* dev = open_device(USB_VENDOR_ID, USB_PRODUCT_ID);
-    if (dev == NULL) {
-        return -1;
-    }
+    gui window;
+    window.show();
 
-    // Test set brightness to 21 out of max 255
-    razer_set_brightness(dev, 0xA9, 1);
-
-    return 0;
+    return app.exec();
 }
