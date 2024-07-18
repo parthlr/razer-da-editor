@@ -16,6 +16,14 @@ class gui : public QWidget {
         gui();
         ~gui();
 
+    private slots:
+        void updateTransitionSpeed();
+        void updateColorHoldDuration();
+        void updateBrightness();
+        void setColor1();
+        void setColor2();
+        void closeWindow();
+
     private:
         QGridLayout* settingsLayout;
 

@@ -147,8 +147,43 @@ gui::gui() {
     
     setLayout(layout);
     setWindowTitle("Razer DeathAdder Essential RGB Editor");
+
+    connect(transitionSpeed, &QSlider::valueChanged, this, &gui::updateTransitionSpeed);
+    connect(colorHoldDuration, &QSlider::valueChanged, this, &gui::updateColorHoldDuration);
+    connect(brightness, &QSlider::valueChanged, this, &gui::updateBrightness);
+    connect(color1EditButton, &QPushButton::clicked, this, &gui::setColor1);
+    connect(color2EditButton, &QPushButton::clicked, this, &gui::setColor2);
+    connect(closeButton, &QPushButton::clicked, this, &gui::closeWindow);
 }
 
 gui::~gui() {
+    close();
+}
 
+void gui::updateTransitionSpeed() {
+    transitionSpeedValue->setText(QString::number(transitionSpeed->value()));
+}
+
+void gui::updateColorHoldDuration() {
+    colorHoldDurationValue->setText(QString::number(colorHoldDuration->value()));
+}
+
+void gui::updateBrightness() {
+    brightnessValue->setText(QString::number(brightness->value()));
+}
+
+void gui::setColor1() {
+    QColor newColor1 = QColorDialog::getColor();
+    color1Palette.setColor(QPalette::Window, newColor1);
+    color1Box->setPalette(color1Palette);
+}
+
+void gui::setColor2() {
+    QColor newColor2 = QColorDialog::getColor();
+    color2Palette.setColor(QPalette::Window, newColor2);
+    color2Box->setPalette(color2Palette);
+}
+
+void gui::closeWindow() {
+    close();
 }
