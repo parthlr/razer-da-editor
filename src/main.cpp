@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
 
     gui window;
+    window.setMinimumWidth(500);
     window.show();
 
     return app.exec();
