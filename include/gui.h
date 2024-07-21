@@ -10,6 +10,15 @@
 #include <QSlider>
 #include <QPushButton>
 
+#include "cjson/cJSON.h"
+
+enum AnimationType {
+    RAINBOW = 0,
+    STATIC = 1,
+    GRADIENT = 2,
+    PULSE = 3
+};
+
 class gui : public QWidget {
 
     public:
@@ -17,6 +26,7 @@ class gui : public QWidget {
         ~gui();
 
     private slots:
+        void updateAnimationType();
         void updateTransitionSpeed();
         void updateColorHoldDuration();
         void updateBrightness();
@@ -25,6 +35,11 @@ class gui : public QWidget {
         void closeWindow();
 
     private:
+        void loadSettings();
+        void saveSettings();
+        void updateSettingsVisibility(std::string animationTypeValue);
+        int* hexToRGB(char* hex);
+
         QGridLayout* settingsLayout;
 
         QLabel* animationTypeLabel;
