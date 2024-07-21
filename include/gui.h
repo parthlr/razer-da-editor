@@ -11,6 +11,11 @@
 #include <QPushButton>
 
 #include "cjson/cJSON.h"
+#include <libusb.h>
+
+extern "C" {
+    #include "razer.h"
+}
 
 enum AnimationType {
     RAINBOW = 0,
@@ -22,7 +27,7 @@ enum AnimationType {
 class gui : public QWidget {
 
     public:
-        gui();
+        gui(libusb_device_handle* device);
         ~gui();
 
     private slots:
@@ -39,6 +44,8 @@ class gui : public QWidget {
         void saveSettings();
         void updateSettingsVisibility(std::string animationTypeValue);
         int* hexToRGB(char* hex);
+
+        libusb_device_handle* device;
 
         QGridLayout* settingsLayout;
 

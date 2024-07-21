@@ -3,7 +3,9 @@
 #include <fstream>
 #include <string>
 
-gui::gui() {
+gui::gui(libusb_device_handle* usbDevice) {
+    device = usbDevice;
+
     // Settings layout
     settingsLayout = new QGridLayout();
     settingsLayout->setContentsMargins(11, 11, 11, 20);
@@ -374,6 +376,8 @@ void gui::saveSettings() {
     settingsFile.close();
 
     cJSON_Delete(settingsJSON);
+
+    razer_set_brightness(device, brightnessOut, 0);
 
     std::cout << "Saved settings" << std::endl; 
 }
